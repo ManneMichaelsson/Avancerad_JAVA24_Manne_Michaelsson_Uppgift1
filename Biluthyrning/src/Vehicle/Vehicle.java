@@ -4,20 +4,18 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 abstract public class Vehicle {
-    String fordonNamn;
-    String regnr;
-    int hyrPrisPerDag;
-    private LocalDate forstaDagenIVeckan;
-    private LocalDate sistaDagenIVeckan;
+    private final String vehicleName;
+    private final String plateNumber;
+    private int rentalPrice;
 
-    public Vehicle(String fordonNamn, String regnr, int hyrPrisPerDag) {
-        this.fordonNamn = fordonNamn;
-        this.regnr = regnr;
-        this.hyrPrisPerDag = hyrPrisPerDag;
+    public Vehicle(String vehicleName, String plateNumber, int rentalPrice) {
+        this.vehicleName = vehicleName;
+        this.plateNumber = plateNumber;
+        this.rentalPrice = rentalPrice * getPriceMultiplierThisDay();
     }
 
     /*Tar emot dagens datum, olika mulipliers beroende på vilken dag det är.
-        måndag = *1
+        Måndag = *1
         tisdag = *2
         onsdag = *2
         torsdag = *2
@@ -25,27 +23,40 @@ abstract public class Vehicle {
         lördag = *4
         söndag = *2
     */
-    public static int getPriceMultiplierThisDay(){
-        LocalDate idag = LocalDate.now(); //Får fram dagens datum
-        if (idag.getDayOfWeek() == DayOfWeek.MONDAY) {
+    public int getPriceMultiplierThisDay(){
+        LocalDate today = LocalDate.now(); //Får dagens datum
+        if (today.getDayOfWeek() == DayOfWeek.MONDAY) {
             return 1;
-        } else if (idag.getDayOfWeek() == DayOfWeek.TUESDAY) {
+        } else if (today.getDayOfWeek() == DayOfWeek.TUESDAY) {
             return 2;
-        } else if (idag.getDayOfWeek() == DayOfWeek.WEDNESDAY) {
-            return 2;
-        }
-        else if (idag.getDayOfWeek() == DayOfWeek.THURSDAY) {
+        } else if (today.getDayOfWeek() == DayOfWeek.WEDNESDAY) {
             return 2;
         }
-        else if (idag.getDayOfWeek() == DayOfWeek.FRIDAY) {
+        else if (today.getDayOfWeek() == DayOfWeek.THURSDAY) {
+            return 2;
+        }
+        else if (today.getDayOfWeek() == DayOfWeek.FRIDAY) {
             return 3;
         }
-        else if (idag.getDayOfWeek() == DayOfWeek.SATURDAY) {
+        else if (today.getDayOfWeek() == DayOfWeek.SATURDAY) {
             return 4;
         }
-        else if (idag.getDayOfWeek() == DayOfWeek.SUNDAY) {
+        else if (today.getDayOfWeek() == DayOfWeek.SUNDAY) {
             return 2;
         }
         return 0;
     }
+
+    public String getVehicleName() {
+        return vehicleName;
+    }
+
+    public String getPlateNumber() {
+        return plateNumber;
+    }
+
+    public int getRentalPrice() {
+        return rentalPrice;
+    }
+    public abstract void sound();
 }
