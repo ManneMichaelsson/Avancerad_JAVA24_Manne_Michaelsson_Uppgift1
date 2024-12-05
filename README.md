@@ -19,13 +19,13 @@ Ett program där man kan hyra virtuella fordon. Syftet med programmet är att hy
 
 ### Användning
 Starta programmet och följ informationen som är i terminalen. Använd siffror 1-5 för att välja från menyn som visas i terminalen. Några delar av programmet vill att man klickar på "ENTER" för att fortsätta. Du kan endast hyra 1 fordon åt gången, för att hyra ett nytt fordon behöver du lämna tillbaka den nuvarande fordornet du hyr. Priserna varierar beorde på vilken dag du använder programmet.
-        Måndag = priset * 1
-        tisdag = priset * 2
-        onsdag = priset * 2
-        torsdag = priset * 2
-        fredag = priset * 3
-        lördag = priset * 4
-        söndag = priset * 2
+        - måndag = priset * 1
+        - tisdag = priset * 2
+        - onsdag = priset * 2
+        - torsdag = priset * 2
+        - fredag = priset * 3
+        - lördag = priset * 4
+        - söndag = priset * 2
 
 ### Exempel från programmet
 $ Userinterface
