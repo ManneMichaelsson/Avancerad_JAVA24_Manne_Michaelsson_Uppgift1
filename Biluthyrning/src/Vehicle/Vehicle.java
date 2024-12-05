@@ -23,7 +23,7 @@ abstract public class Vehicle {
         lördag = *4
         söndag = *2
     */
-    public int getPriceMultiplierThisDay(){
+    private int getPriceMultiplierThisDay(){
         LocalDate today = LocalDate.now(); //Får dagens datum
         if (today.getDayOfWeek() == DayOfWeek.MONDAY) {
             return 1;

@@ -23,6 +23,7 @@ public class Userinterface {
         vehicles.add(new RentalVehicle(new SUV("Polestar", "PLK 541", 300, true)));
         vehicles.add(new RentalVehicle(new Truck("Volvo Truck", "IGT 538", 500, "Redbull")));
         vehicles.add(new RentalVehicle(new Motorcycle("Kawasaki", "OLT 293", 100, true)));
+        System.out.println(vehicles.get(0).getVehicle().getRentalPrice());
 
         mainMenu(vehicles, renting, vehicleNumber, scanner, totalPrice, daysRented);
     }

@@ -29,7 +29,7 @@ public class RentalVehicle implements Rentable {
     @Override
     public double calculateRentalPrice(int daysRented) {
         double totalAmount;
-        totalAmount = daysRented * (vehicle.getPriceMultiplierThisDay() * vehicle.getRentalPrice());
+        totalAmount = daysRented * vehicle.getRentalPrice();
         return totalAmount;
     }
     public Vehicle getVehicle() {
