@@ -19,13 +19,14 @@ public class Userinterface {
         Scanner scanner = new Scanner(System.in);
 
         ArrayList<RentalVehicle> vehicles = new ArrayList<>();
-        vehicles.add(new RentalVehicle(new Car("Tesla", "ABC 123", 200)));
-        vehicles.add(new RentalVehicle(new SUV("Polestar", "PLK 541", 300)));
-        vehicles.add(new RentalVehicle(new Truck("Volvo Truck", "IGT 538", 500)));
-        vehicles.add(new RentalVehicle(new Motorcycle("Kawasaki", "OLT 293", 100)));
+        vehicles.add(new RentalVehicle(new Car("Tesla", "ABC 123", 200, 4)));
+        vehicles.add(new RentalVehicle(new SUV("Polestar", "PLK 541", 300, true)));
+        vehicles.add(new RentalVehicle(new Truck("Volvo Truck", "IGT 538", 500, "Redbull")));
+        vehicles.add(new RentalVehicle(new Motorcycle("Kawasaki", "OLT 293", 100, true)));
 
         mainMenu(vehicles, renting, vehicleNumber, scanner, totalPrice, daysRented);
     }
+
     public static void mainMenu(ArrayList<RentalVehicle> vehicles, boolean renting, int vehicleNumber, Scanner scanner, double totalPrice, int daysRented) {
         String choice;
         if (renting) {
@@ -46,30 +47,36 @@ public class Userinterface {
         }
         else if (choice.equalsIgnoreCase("2")) { //Lämna tillbaka bil
             if (renting) {
-                returnVehicle(vehicles, renting, vehicleNumber, scanner);
+                returnVehicle(vehicles, renting, vehicleNumber, scanner, totalPrice, daysRented);
             }
             else if (!renting) {
-                System.out.println("You are currently not renting, please rent a vehicle first");
+                System.out.println("You are currently not renting, please rent a vehicle first. Press enter to continue");
+                scanner.nextLine();
                 mainMenu(vehicles, renting, vehicleNumber, scanner, totalPrice, daysRented);
             }
         }
         else if (choice.equalsIgnoreCase("3")) { //Information om bilarna
             RentalVehicle.informationRental();
+            System.out.print("Press enter to continue");
+            scanner.nextLine();
+            mainMenu(vehicles, renting, vehicleNumber, scanner, totalPrice, daysRented);
         }
         else if (choice.equalsIgnoreCase("4")) { //åk på en dagsutflykt
             if (!renting) {
-                System.out.println("you need to rent a vehicle first!");
+                System.out.println("you need to rent a vehicle first! Press enter to continue");
+                scanner.nextLine();
                 mainMenu(vehicles, renting, vehicleNumber, scanner, totalPrice, daysRented);
             }
             else if (renting) {
-                totalPrice += oneDayTrip(vehicles, vehicleNumber);
+                totalPrice += oneDayTrip(vehicles, vehicleNumber, scanner);
                 daysRented++;
                 mainMenu(vehicles, renting, vehicleNumber, scanner, totalPrice, daysRented);
             }
         }
         else if (choice.equalsIgnoreCase("5")) { //avsluta
             if (renting) {
-                System.out.println("You need to return your rental!");
+                System.out.println("You need to return your rental! Press enter to continue");
+                scanner.nextLine();
                 mainMenu(vehicles, renting, vehicleNumber, scanner, totalPrice, daysRented);
             } else if (!renting) {
                 scanner.close();
@@ -77,7 +84,8 @@ public class Userinterface {
             }
         }
         else {
-            System.out.println("Invalid choice, please try again");
+            System.out.println("Invalid choice, please try again. Press enter to continue");
+            scanner.nextLine();
             System.out.println();
             mainMenu(vehicles, renting, vehicleNumber, scanner, totalPrice, daysRented);
         }
@@ -126,36 +134,42 @@ public class Userinterface {
         }
     }
 
-    private static void returnVehicle(ArrayList<RentalVehicle> vehicles, boolean renting, int vehicleNumber, Scanner scanner) {
+    private static void returnVehicle(ArrayList<RentalVehicle> vehicles, boolean renting, int vehicleNumber, Scanner scanner, double totalPrice, int daysRented) {
         vehicles.get(vehicleNumber).returnVehicle();
         renting = false;
         vehicleNumber = 10;
+        System.out.println("Press enter to continue");
+        scanner.nextLine();
+        mainMenu(vehicles, renting, vehicleNumber, scanner, totalPrice, daysRented);
     }
-    private static double oneDayTrip(ArrayList<RentalVehicle> vehicles, int vehicleNumber) {
-        System.out.println("Going on a trip!");
+    private static double oneDayTrip(ArrayList<RentalVehicle> vehicles, int vehicleNumber, Scanner scanner) {
+        System.out.println("Going on a trip! Press enter to continue");
         vehicles.get(vehicleNumber).getVehicle().sound();
+        scanner.nextLine();
         return vehicles.get(vehicleNumber).calculateRentalPrice(1);
     }
     public static void menuIfRented(int daysRented, double totalPrice){
+        System.out.println("__________________________________");
         System.out.println("--- How can i help you today? ---");
         System.out.println("1. Rent a Vehicle [ALREADY RENTING]");
         System.out.println("2. Return a Vehicle");
-        System.out.println("3. Information about a Vehicles");
+        System.out.println("3. Information about a rental");
         System.out.println("4. Go on a trip (1 day)");
         System.out.println("5. Exit");
-        System.out.println("______________________");
+        System.out.println("__________________________________");
         System.out.println("Total days rented: " + daysRented);
         System.out.println("Total spent: " + totalPrice + "kr");
         System.out.print("enter your choice: ");
     }
     public static void menuIfNotRented(int daysRented, double totalPrice){
+        System.out.println("__________________________________");
         System.out.println("--- How can i help you today? ---");
         System.out.println("1. Rent a Vehicle");
         System.out.println("2. Return a Vehicle [NOT RENTING ANYTHING]");
-        System.out.println("3. Information about a Vehicles");
+        System.out.println("3. Information about a rental");
         System.out.println("4. Go on a trip [NEED TO RENT FIRST]");
         System.out.println("5. Exit");
-        System.out.println("______________________");
+        System.out.println("__________________________________");
         System.out.println("Total days rented: " + daysRented);
         System.out.println("Total spent: " + totalPrice + "kr");
         System.out.print("enter your choice: ");

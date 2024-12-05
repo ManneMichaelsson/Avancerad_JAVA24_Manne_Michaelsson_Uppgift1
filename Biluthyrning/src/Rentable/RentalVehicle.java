@@ -1,9 +1,16 @@
 package Rentable;
 
+import Vehicle.DifferentVehicles.Car;
+import Vehicle.DifferentVehicles.Motorcycle;
+import Vehicle.DifferentVehicles.SUV;
+import Vehicle.DifferentVehicles.Truck;
 import Vehicle.Vehicle;
+
+import java.sql.SQLOutput;
 
 public class RentalVehicle implements Rentable {
     private Vehicle vehicle;
+
 
     public RentalVehicle(Vehicle vehicle) {
         this.vehicle = vehicle;
@@ -28,7 +35,8 @@ public class RentalVehicle implements Rentable {
     public Vehicle getVehicle() {
         return vehicle;
     }
-    public static void informationRental(){
+
+    public static void informationRental() {
         System.out.println("--- Multipliers for each day due to higher demand ---");
         System.out.println("Mondays: x1 kr");
         System.out.println("Tuesdays: x2 kr");

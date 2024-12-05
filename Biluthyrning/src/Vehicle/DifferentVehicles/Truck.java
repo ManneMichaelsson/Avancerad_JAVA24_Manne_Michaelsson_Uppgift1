@@ -3,8 +3,11 @@ package Vehicle.DifferentVehicles;
 import Vehicle.Vehicle;
 
 public class Truck extends Vehicle {
-    public Truck(String vehicleName, String plateNumber, int rentalPrice) {
+    private String advertisment;
+
+    public Truck(String vehicleName, String plateNumber, int rentalPrice, String advertisment) {
         super(vehicleName, plateNumber, rentalPrice);
+        this.advertisment = advertisment;
     }
 
     @Override
